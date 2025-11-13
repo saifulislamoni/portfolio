@@ -1,4 +1,13 @@
-/* CSS Variables for Blue Theme */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saiful Islam Oni - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Blue Theme */
         :root {
             --primary-blue: #284e67;
             --secondary-blue: #92afc3;
@@ -245,7 +254,7 @@
 
         /* Qualifications Section */
         #qualifications {
-            background-color: var(--white);
+            background-color: var(--light-gray);
         }
 
         .qualifications-content {
@@ -444,7 +453,6 @@
             max-width: 800px;
             margin: 0 auto;
             position: relative;
-            background-color: var(--gr);
         }
 
         .activities-timeline::before {
@@ -508,6 +516,153 @@
             color: var(--text-light);
         }
 
+        /* Certificates Section */
+        #certificates {
+            background-color: var(--light-gray);
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .certificate-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .certificate-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .certificate-icon i {
+            font-size: 30px;
+            color: var(--primary-blue);
+        }
+
+        .certificate-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .certificate-issuer {
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .certificate-date {
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--white);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .contact-form {
+            background-color: var(--light-gray);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 2px rgba(40, 78, 103, 0.2);
+        }
+
+        .contact-info {
+            padding: 20px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+        }
+
+        .contact-info p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .contact-details {
+            list-style: none;
+        }
+
+        .contact-details li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-details i {
+            width: 20px;
+            color: var(--primary-blue);
+        }
+
+        .contact-details a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-details a:hover {
+            color: var(--primary-blue);
+        }
+
         /* Footer */
         #footer {
             background-color: var(--dark-blue);
@@ -565,7 +720,8 @@
         .qualification-item,
         .project-card,
         .research-card,
-        .timeline-content {
+        .timeline-content,
+        .certificate-card {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
@@ -574,7 +730,8 @@
         .animate-in .qualification-item,
         .animate-in .project-card,
         .animate-in .research-card,
-        .animate-in .timeline-content {
+        .animate-in .timeline-content,
+        .animate-in .certificate-card {
             opacity: 1;
             transform: translateY(0);
         }
@@ -593,6 +750,10 @@
         .timeline-item:nth-child(1) .timeline-content { transition-delay: 0.1s; }
         .timeline-item:nth-child(2) .timeline-content { transition-delay: 0.2s; }
         .timeline-item:nth-child(3) .timeline-content { transition-delay: 0.3s; }
+        
+        .certificate-card:nth-child(1) { transition-delay: 0.1s; }
+        .certificate-card:nth-child(2) { transition-delay: 0.2s; }
+        .certificate-card:nth-child(3) { transition-delay: 0.3s; }
 
         /* Responsive Design */
         @media screen and (max-width: 992px) {
@@ -615,6 +776,11 @@
             
             .section-title {
                 font-size: 2.2rem;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
         }
 
@@ -661,6 +827,10 @@
             }
             
             .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .certificates-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -720,79 +890,144 @@
                 font-size: 1.8rem;
             }
         }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="index.html">Saiful Islam Oni</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#qualifications" class="nav-link">Education</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#research" class="nav-link">Publications</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#extracurricular" class="nav-link">Activities</a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#certificates" class="nav-link">Certificates</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
 
-/* Certificates Section */
-.certificates-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-bottom: 40px;
-}
 
-.certificate-card {
-    background-color: var(--white);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    text-align: center;
-}
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <h2 class="section-title">Contact Me</h2>
+            <div class="contact-content">
+                <form action="https://formspree.io/f/mqawalko" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="_replyto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>If you have any questions or would like to collaborate, feel free to reach out!</p>
+                    <ul class="contact-details">
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:saifulislamoni06@gmail.com">saifulislamoni06@gmail.com</a></li>
+                        <li><i class="fas fa-phone"></i> +880 1794-272292</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-.certificate-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Saiful Islam Oni</h3>
+                    <p>AI & Machine Learning Enthusiast</p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Saiful Islam Oni. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+<script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
 
-.certificate-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
 
-.certificate-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--dark-blue);
-    line-height: 1.4;
-}
+        // Close mobile menu when clicking on a nav link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
 
-.certificates-button {
-    text-align: center;
-    margin-top: 20px;
-}
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-/* Animation for certificate cards */
-.certificate-card {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
 
-.animate-in .certificate-card {
-    opacity: 1;
-    transform: translateY(0);
-}
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const elementsToAnimate = document.querySelectorAll('.qualification-item, .project-card, .research-card, .timeline-content, .certificate-card');
+            
+            elementsToAnimate.forEach(el => {
+                observer.observe(el);
+            });
+        });
 
-.certificate-card:nth-child(1) { transition-delay: 0.1s; }
-.certificate-card:nth-child(2) { transition-delay: 0.2s; }
-.certificate-card:nth-child(3) { transition-delay: 0.3s; }
-
-/* Responsive Design for Certificates */
-@media screen and (max-width: 992px) {
-    .certificates-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .certificates-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .certificate-image {
-        height: 180px;
-    }
-}
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            }
+        });
+    </script>
