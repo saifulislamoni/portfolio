@@ -208,6 +208,101 @@
             color: #555;
         }
         
+        /* Slide Show Styles */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+        
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .slide-content {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            max-width: 80%;
+            text-align: center;
+        }
+        
+        .slide h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .slide p {
+            font-size: 1.1rem;
+        }
+        
+        .slideshow-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-dot.active {
+            background-color: white;
+        }
+        
+        .slideshow-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+        
+        .slideshow-controls button {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        
+        .slideshow-controls button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
         /* Footer styles */
         #footer {
             background-color: #2c3e50;
@@ -317,6 +412,18 @@
                 gap: 1.5rem;
                 text-align: center;
             }
+            
+            .slideshow-container {
+                height: 300px;
+            }
+            
+            .slide h3 {
+                font-size: 1.5rem;
+            }
+            
+            .slide p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -358,33 +465,67 @@
     <!-- Project Showcase Section -->
 
     <table class="container">
-            <h2 class="section-title">EkSeat.com- A Ride Sharing WebApp</h2>
+        <h2 class="section-title">EkSeat.com- A Ride Sharing WebApp</h2>
         <tr>
-            <td class="project-video" > 
-                
-            </td>
-            <td>
-                <div class="key-points">
-                    <h3>Key Points</h3>
-                    <ul>
-                        <li>Real-time face recognition system</li>
-                        <li>Secure access control with ESP32Cam</li>
-                        <li>Machine learning algorithms for accurate identification</li>
-                        <li>Solenoidal door lock integration</li>
-                        <li>Works in various lighting conditions</li>
-                        <li>Easy to integrate with existing systems</li>
-                    </ul>
+            <!-- Slide Show of the Project -->
+            <td colspan="2">
+                <div class="slideshow-container">
+                    <div class="slides">
+                        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                            <div class="slide-content">
+                                <h3>EkSeat.com - Homepage</h3>
+                                <p>Modern, responsive design with intuitive user interface</p>
+                            </div>
+                        </div>
+                        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                            <div class="slide-content">
+                                <h3>Ride Booking Interface</h3>
+                                <p>Easy-to-use booking system with real-time availability</p>
+                            </div>
+                        </div>
+                        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1556742044-3c52d6e88c62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                            <div class="slide-content">
+                                <h3>Driver Dashboard</h3>
+                                <p>Comprehensive dashboard for drivers to manage rides</p>
+                            </div>
+                        </div>
+                        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1556740772-1a741367b93e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                            <div class="slide-content">
+                                <h3>Payment Integration</h3>
+                                <p>Secure payment processing with multiple options</p>
+                            </div>
+                        </div>
+                        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                            <div class="slide-content">
+                                <h3>Mobile Responsive</h3>
+                                <p>Optimized experience across all device sizes</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slideshow-controls">
+                        <button id="prev-slide"><i class="fas fa-chevron-left"></i></button>
+                        <button id="next-slide"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    
+                    <div class="slideshow-nav">
+                        <div class="nav-dot active" data-index="0"></div>
+                        <div class="nav-dot" data-index="1"></div>
+                        <div class="nav-dot" data-index="2"></div>
+                        <div class="nav-dot" data-index="3"></div>
+                        <div class="nav-dot" data-index="4"></div>
+                    </div>
                 </div>
             </td>
         </tr>
         <tr>
             <td class="project-description">
                     <h3>Description</h3>
-                    <p>Developed a face recognition based door lock system using the ESP32Cam and Solenoidal Door Lock System. The model utilizes machine learning algorithms to accurately identify authorized individuals and grant access.</p>
+                    <p>EkSeat.com is a comprehensive ride-sharing web application developed to connect passengers with drivers in an efficient and user-friendly manner. The platform features a modern, responsive design that works seamlessly across all devices.</p>
                     
-                    <p>The system was designed to work reliably in different environmental conditions, with special attention given to varying lighting scenarios that typically challenge facial recognition systems.</p>
+                    <p>The application includes features such as real-time ride booking, driver tracking, secure payment processing, and a comprehensive rating system. Users can easily find available rides, track their driver's location, and make payments through multiple secure options.</p>
                     
-                    <p>This project demonstrates the practical application of AI and IoT technologies in creating secure, automated access control systems that can be deployed in residential, commercial, or institutional settings.</p>
+                    <p>For drivers, the platform offers a dedicated dashboard to manage rides, track earnings, and maintain their profile. The system is built with scalability in mind, ensuring smooth performance even during peak usage times.</p>
             </td>
         </tr>
     </table>
@@ -398,9 +539,9 @@
                     <p>AI & Machine Learning Enthusiast</p>
                 </div>
                 <div class="footer-social">
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/saiful-islam-oni/"  target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/saifulislamoni" target="_blank" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/SaifulIslamOni" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -424,6 +565,90 @@
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }));
+
+        // Slide Show Functionality
+        const slides = document.querySelector('.slides');
+        const slideItems = document.querySelectorAll('.slide');
+        const navDots = document.querySelectorAll('.nav-dot');
+        const prevButton = document.getElementById('prev-slide');
+        const nextButton = document.getElementById('next-slide');
+        
+        let currentSlide = 0;
+        const totalSlides = slideItems.length;
+        
+        // Initialize slide show
+        function initSlideShow() {
+            updateSlidePosition();
+            startAutoSlide();
+        }
+        
+        // Update slide position
+        function updateSlidePosition() {
+            slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Update active nav dot
+            navDots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+        
+        // Go to next slide
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlidePosition();
+        }
+        
+        // Go to previous slide
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlidePosition();
+        }
+        
+        // Auto slide functionality
+        let slideInterval;
+        
+        function startAutoSlide() {
+            slideInterval = setInterval(nextSlide, 5000);
+        }
+        
+        function stopAutoSlide() {
+            clearInterval(slideInterval);
+        }
+        
+        // Event listeners
+        prevButton.addEventListener('click', () => {
+            stopAutoSlide();
+            prevSlide();
+            startAutoSlide();
+        });
+        
+        nextButton.addEventListener('click', () => {
+            stopAutoSlide();
+            nextSlide();
+            startAutoSlide();
+        });
+        
+        // Nav dots click events
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                stopAutoSlide();
+                currentSlide = parseInt(dot.getAttribute('data-index'));
+                updateSlidePosition();
+                startAutoSlide();
+            });
+        });
+        
+        // Pause auto slide on hover
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        slideshowContainer.addEventListener('mouseenter', stopAutoSlide);
+        slideshowContainer.addEventListener('mouseleave', startAutoSlide);
+        
+        // Initialize the slide show
+        initSlideShow();
     </script>
 </body>
 </html>

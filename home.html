@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio with Neural Network Background</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Variables for Blue Theme (Light) */
+        :root {
+            --primary-blue: #284e67;
+            --secondary-blue: #92afc3;
+            --light-blue: #e1f5fe;
+            --dark-blue: #1a5276;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --white: #ffffff;
+            --light-gray: #f5f7fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --background: var(--white);
+            --card-bg: var(--white);
+            --nav-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        /* CSS Variables for Dark Theme */
+        [data-theme="dark"] {
+            --primary-blue: #4a90a4;
+            --secondary-blue: #7aa8b7;
+            --light-blue: #1a3c4d;
+            --dark-blue: #8ab6d6;
+            --text-dark: #e0e0e0;
+            --text-light: #a0a0a0;
+            --white: #1e1e1e;
+            --light-gray: #2d2d2d;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --background: #121212;
+            --card-bg: #2d2d2d;
+            --nav-bg: rgba(30, 30, 30, 0.95);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--background);
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        /* Neural Network Background */
+        #neural-network {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--dark-blue);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+            border-radius: 2px;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+
+        /* Navigation */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--nav-bg);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            margin: 0px 50px;
+        }
+
+        .nav-logo a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 30px;
+        }
+
+        .nav-link {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-blue);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        /* Home Section */
+        #home {
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--background) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .home-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .home-text {
+            flex: 1;
+        }
+
+        .home-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+
+        .home-subtitle {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .home-description {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .home-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-blue);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-blue);
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .home-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .image-placeholder {
+            width: 450px;
+            height: 450px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+        }
+
+        .image-placeholder i {
+            font-size: 150px;
+            color: var(--white);
+        }
+
+        /* Qualifications Section */
+        #qualifications {
+            background-color: var(--background);
+        }
+
+        .qualifications-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .qualification-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .qualification-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .qualification-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .qualification-icon i {
+            font-size: 24px;
+            color: var(--primary-blue);
+        }
+
+        .qualification-text {
+            flex: 1;
+        }
+
+        .qualification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 5px;
+        }
+
+        .qualification-title {
+            font-weight: bold;
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .qualification-timeline {
+            color: var(--primary-blue);
+            margin: 0;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .qualification-institution {
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-icon {
+            width: 70px;
+            height: 70px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .project-icon i {
+            font-size: 30px;
+            color: var(--primary-blue);
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+        }
+
+        .project-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Research Section */
+        #research {
+            background-color: var(--light-gray);
+        }
+
+        .research-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .research-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .research-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .research-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .research-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .research-icon i {
+            font-size: 20px;
+            color: var(--primary-blue);
+        }
+
+        .research-description {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .research-conference {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .research-conference i {
+            font-size: 18px;
+        }
+
+        /* Extracurricular Activities Section */
+        .activities-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .activities-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 30px;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary-blue), var(--secondary-blue));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-left: 70px;
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .timeline-icon {
+            position: absolute;
+            left: 0;
+            width: 60px;
+            height: 60px;
+            background-color: var(--light-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .timeline-icon i {
+            font-size: 24px;
+            color: var(--primary-blue);
+        }
+
+        .timeline-role {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 5px;
+        }
+
+        .timeline-organization {
+            color: var(--text-light);
+        }
+
+        /* Certificates Section */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .certificate-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .certificate-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .certificate-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            line-height: 1.4;
+        }
+
+        .certificates-button {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        #footer {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .footer-info p {
+            color: var(--light-blue);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-blue);
+        }
+
+        /* Animation Classes */
+        .qualification-item,
+        .project-card,
+        .research-card,
+        .timeline-content,
+        .certificate-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .animate-in .qualification-item,
+        .animate-in .project-card,
+        .animate-in .research-card,
+        .animate-in .timeline-content,
+        .animate-in .certificate-card {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .qualification-item:nth-child(1) { transition-delay: 0.1s; }
+        .qualification-item:nth-child(2) { transition-delay: 0.2s; }
+        
+        .project-card:nth-child(1) { transition-delay: 0.1s; }
+        .project-card:nth-child(2) { transition-delay: 0.2s; }
+        .project-card:nth-child(3) { transition-delay: 0.3s; }
+        .project-card:nth-child(4) { transition-delay: 0.4s; }
+        
+        .research-card:nth-child(1) { transition-delay: 0.1s; }
+        .research-card:nth-child(2) { transition-delay: 0.2s; }
+        
+        .timeline-item:nth-child(1) .timeline-content { transition-delay: 0.1s; }
+        .timeline-item:nth-child(2) .timeline-content { transition-delay: 0.2s; }
+        .timeline-item:nth-child(3) .timeline-content { transition-delay: 0.3s; }
+
+        .certificate-card:nth-child(1) { transition-delay: 0.1s; }
+        .certificate-card:nth-child(2) { transition-delay: 0.2s; }
+        .certificate-card:nth-child(3) { transition-delay: 0.3s; }
+
+        /* Responsive Design */
+        @media screen and (max-width: 992px) {
+            .home-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .home-buttons {
+                justify-content: center;
+            }
+            
+            .home-title {
+                font-size: 2.8rem;
+            }
+            
+            .home-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .certificates-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background-color: var(--card-bg);
+                width: 100%;
+                text-align: center;
+                transition: var(--transition);
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 20px 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                margin: 15px 0;
+            }
+            
+            .home-title {
+                font-size: 2.5rem;
+            }
+            
+            .home-subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+            
+            .qualification-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .qualification-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .research-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .certificates-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .certificate-image {
+                height: 180px;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .home-title {
+                font-size: 2rem;
+            }
+            
+            .home-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .home-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+            
+            .image-placeholder {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .image-placeholder i {
+                font-size: 100px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Neural Network Background Canvas -->
+    <canvas id="neural-network"></canvas>
+    
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="theme-toggle">
+        <i class="fas fa-moon"></i>
+    </button>
+    
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#">Portfolio</a>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#qualifications" class="nav-link">Qualifications</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#research" class="nav-link">Research</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#activities" class="nav-link">Activities</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#certificates" class="nav-link">Certificates</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Home Section -->
+    <section id="home">
+        <div class="container">
+            <div class="home-content">
+                <div class="home-text">
+                    <h1 class="home-title">John Doe</h1>
+                    <h2 class="home-subtitle">AI & Machine Learning Engineer</h2>
+                    <p class="home-description">
+                        Passionate about creating intelligent systems that solve real-world problems. 
+                        Specializing in neural networks, deep learning, and computer vision.
+                    </p>
+                    <div class="home-buttons">
+                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                    </div>
+                </div>
+                <div class="home-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Qualifications Section -->
+    <section id="qualifications" class="section">
+        <div class="container">
+            <h2 class="section-title">Qualifications</h2>
+            <div class="qualifications-content">
+                <div class="qualification-item">
+                    <div class="qualification-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="qualification-text">
+                        <div class="qualification-header">
+                            <h3 class="qualification-title">Master of Science in Artificial Intelligence</h3>
+                            <p class="qualification-timeline">2020 - 2022</p>
+                        </div>
+                        <p class="qualification-institution">Stanford University</p>
+                    </div>
+                </div>
+                <div class="qualification-item">
+                    <div class="qualification-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="qualification-text">
+                        <div class="qualification-header">
+                            <h3 class="qualification-title">Bachelor of Science in Computer Science</h3>
+                            <p class="qualification-timeline">2016 - 2020</p>
+                        </div>
+                        <p class="qualification-institution">MIT</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="project-title">Neural Network Visualizer</h3>
+                    <p class="project-description">
+                        An interactive tool for visualizing neural network architectures and training processes.
+                    </p>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="project-title">Autonomous Drone Navigation</h3>
+                    <p class="project-description">
+                        AI-powered drone that can navigate complex environments using computer vision.
+                    </p>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="project-title">Stock Prediction Model</h3>
+                    <p class="project-description">
+                        Deep learning model for predicting stock market trends with 85% accuracy.
+                    </p>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3 class="project-title">Language Translation AI</h3>
+                    <p class="project-description">
+                        Neural machine translation system supporting 10+ languages with real-time processing.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Research Section -->
+    <section id="research" class="section">
+        <div class="container">
+            <h2 class="section-title">Research</h2>
+            <div class="research-content">
+                <div class="research-card">
+                    <div class="research-header">
+                        <h3 class="research-title">Advancements in Transformer Architectures</h3>
+                        <div class="research-icon">
+                            <i class="fas fa-microscope"></i>
+                        </div>
+                    </div>
+                    <p class="research-description">
+                        This research explores novel transformer architectures that improve efficiency 
+                        while maintaining performance in natural language processing tasks.
+                    </p>
+                    <div class="research-conference">
+                        <i class="fas fa-book"></i>
+                        <span>Published in NeurIPS 2022</span>
+                    </div>
+                </div>
+                <div class="research-card">
+                    <div class="research-header">
+                        <h3 class="research-title">Federated Learning for Privacy-Preserving AI</h3>
+                        <div class="research-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <p class="research-description">
+                        Developing federated learning techniques that enable model training across 
+                        decentralized devices while preserving user privacy.
+                    </p>
+                    <div class="research-conference">
+                        <i class="fas fa-book"></i>
+                        <span>Published in ICML 2021</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Extracurricular Activities Section -->
+    <section id="activities" class="section">
+        <div class="container">
+            <h2 class="section-title">Extracurricular Activities</h2>
+            <div class="activities-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-role">President</h3>
+                        <p class="timeline-organization">AI Club, Stanford University (2021-2022)</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-role">Mentor</h3>
+                        <p class="timeline-organization">Google Code-in (2020)</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-role">Volunteer</h3>
+                        <p class="timeline-organization">TechBridge World (2019-2020)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Certificates Section -->
+    <section id="certificates" class="section">
+        <div class="container">
+            <h2 class="section-title">Certificates</h2>
+            <div class="certificates-grid">
+                <div class="certificate-card">
+                    <img src="https://via.placeholder.com/300x200/284e67/ffffff?text=Deep+Learning" alt="Deep Learning Certificate" class="certificate-image">
+                    <h3 class="certificate-title">Deep Learning Specialization</h3>
+                </div>
+                <div class="certificate-card">
+                    <img src="https://via.placeholder.com/300x200/1a5276/ffffff?text=Machine+Learning" alt="Machine Learning Certificate" class="certificate-image">
+                    <h3 class="certificate-title">Machine Learning Engineer</h3>
+                </div>
+                <div class="certificate-card">
+                    <img src="https://via.placeholder.com/300x200/92afc3/ffffff?text=Neural+Networks" alt="Neural Networks Certificate" class="certificate-image">
+                    <h3 class="certificate-title">Neural Networks and Deep Learning</h3>
+                </div>
+            </div>
+            <div class="certificates-button">
+                <a href="#" class="btn btn-primary">View All Certificates</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>John Doe</h3>
+                    <p>AI & Machine Learning Engineer</p>
+                </div>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 John Doe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Neural Network Background
+        const canvas = document.getElementById('neural-network');
+        const ctx = canvas.getContext('2d');
+        
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        
+        // Neural network nodes and connections
+        const nodes = [];
+        const connections = [];
+        
+        // Create nodes
+        function createNodes() {
+            const layerCount = 5;
+            const nodesPerLayer = 8;
+            
+            for (let layer = 0; layer < layerCount; layer++) {
+                const layerNodes = [];
+                for (let i = 0; i < nodesPerLayer; i++) {
+                    const x = (layer / (layerCount - 1)) * canvas.width;
+                    const y = (i / (nodesPerLayer - 1)) * canvas.height;
+                    
+                    layerNodes.push({
+                        x: x,
+                        y: y,
+                        vx: (Math.random() - 0.5) * 0.5,
+                        vy: (Math.random() - 0.5) * 0.5,
+                        radius: 3,
+                        layer: layer
+                    });
+                }
+                nodes.push(...layerNodes);
+            }
+            
+            // Create connections between layers
+            for (let layer = 0; layer < layerCount - 1; layer++) {
+                const currentLayerNodes = nodes.filter(node => node.layer === layer);
+                const nextLayerNodes = nodes.filter(node => node.layer === layer + 1);
+                
+                for (const nodeA of currentLayerNodes) {
+                    for (const nodeB of nextLayerNodes) {
+                        connections.push({
+                            nodeA: nodeA,
+                            nodeB: nodeB,
+                            opacity: Math.random() * 0.5 + 0.2
+                        });
+                    }
+                }
+            }
+        }
+        
+        // Animation loop
+        function animate() {
+            // Clear canvas with slight fade effect for trailing
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Update and draw connections
+            ctx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary-blue');
+            ctx.lineWidth = 1;
+            
+            for (const connection of connections) {
+                // Pulsing opacity
+                connection.opacity = 0.2 + 0.3 * Math.sin(Date.now() * 0.001 + connection.nodeA.x * 0.01);
+                
+                ctx.beginPath();
+                ctx.moveTo(connection.nodeA.x, connection.nodeA.y);
+                ctx.lineTo(connection.nodeB.x, connection.nodeB.y);
+                ctx.strokeStyle = `rgba(40, 78, 103, ${connection.opacity})`;
+                ctx.stroke();
+            }
+            
+            // Update and draw nodes
+            ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--primary-blue');
+            
+            for (const node of nodes) {
+                // Move nodes
+                node.x += node.vx;
+                node.y += node.vy;
+                
+                // Bounce off edges
+                if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+                
+                // Keep nodes within their layer bounds
+                const layerWidth = canvas.width / 4;
+                const minX = (node.layer / 4) * canvas.width - layerWidth / 2;
+                const maxX = (node.layer / 4) * canvas.width + layerWidth / 2;
+                
+                if (node.x < minX || node.x > maxX) {
+                    node.vx *= -1;
+                    node.x = Math.max(minX, Math.min(maxX, node.x));
+                }
+                
+                // Draw node
+                ctx.beginPath();
+                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Initialize and start animation
+        createNodes();
+        animate();
+        
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme or prefer-color-scheme
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+        
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animate elements
+        document.querySelectorAll('.qualification-item, .project-card, .research-card, .timeline-content, .certificate-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
